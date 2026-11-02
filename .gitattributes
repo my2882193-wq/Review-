@@ -1,0 +1,18 @@
+# Set default behavior to automatically normalize line endings.
+* text=auto
+
+# Scripts and shell files must use LF (Unix) line endings
+gradlew text eol=lf
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Windows batch files can use CRLF
+gradlew.bat text eol=crlf
+
+# Gradle wrapper properties
+gradle-wrapper.properties text eol=lf
+
+# Build files
+*.gradle text eol=lf
+*.properties text eol=lf
