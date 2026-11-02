@@ -19,16 +19,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Download Gradle 7.6.1
-        run: |
-          wget https://services.gradle.org/distributions/gradle-7.6.1-bin.zip
-          unzip gradle-7.6.1-bin.zip
-          export PATH=$PATH:/home/runner/work/Review-/Review-/gradle-7.6.1/bin
-
       - name: Build Debug APK
-        run: |
-          export PATH=$PATH:/home/runner/work/Review-/Review-/gradle-7.6.1/bin
-          gradle assembleDebug
+        run: chmod +x gradlew && ./gradlew assembleDebug
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
