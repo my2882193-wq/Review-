@@ -7,9 +7,8 @@ import okhttp3.*
 
 object ApiService {
     private val BASE_URL = "https://openrouter.ai/api/v1"
-    // TODO: Replace with your own OpenRouter API key. Do NOT commit real API keys to version control.
-    private val API_KEY = "YOUR_OPENROUTER_API_KEY_HERE"
-    private val MODEL = "openrouter/auto"
+    private val API_KEY = BuildConfig.OPENROUTER_API_KEY
+    private val MODEL = "nvidia/nemotron-3.5-embed-1b"
     private val client = OkHttpClient()
     private val gson = Gson()
     private val mainHandler = Handler(Looper.getMainLooper())
