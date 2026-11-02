@@ -1,0 +1,63 @@
+package com.reviewapp
+
+import android.os.Handler
+import android.os.Looper
+import com.google.gson.Gson
+import okhttp3.*
+
+object ApiService {
+    private val BASE_URL = "https://openrouter.ai/api/v1"
+    // TODO: Replace with your own OpenRouter API key. Do NOT commit real API keys to version control.
+    private val API_KEY = "YOUR_OPENROUTER_API_KEY_HERE"
+    private val MODEL = "openrouter/auto"
+    private val client = OkHttpClient()
+    private val gson = Gson()
+    private val mainHandler = Handler(Looper.getMainLooper())
+
+    data class AiRequest(val model: String, val messages: List<Message>)
+    data class Message(val role: String, val content: String)
+    data class AiResponse(val choices: List<Choice>)
+    data class Choice(val message: Message)
+
+    interface AiCallback {
+        fun onSuccess(text: String)
+        fun onError(error: String)
+    }
+
+    fun generateReview(prompt: String, callback: AiCallback) {
+        val json = gson.toJson(AiRequest(MODEL, listOf(Message("user", prompt))))
+        val body = RequestBody.create(json, MediaType.get("application/json; charset=utf-8")!!)
+        val request = Request.Builder()
+            .url("$BASE_URL/chat/completions")
+            .header("Authorization", "Bearer $API_KEY")
+            .header("Content-Type", "application/json")
+            .post(body)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                mainHandler.post { callback.onError(e.message ?: "Network error") }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val respBody = response.body?.string() ?: ""
+                if (!response.isSuccessful) {
+                    mainHandler.post { callback.onError("Server error: $respBody") }
+                    return
+                }
+                try {
+                    val aiResp = gson.fromJson(respBody, AiResponse::class.java)
+                    val text = aiResp.choices.firstOrNull()?.message?.content ?: "कोई रिव्यू नहीं मिला"
+                    mainHandler.post { callback.onSuccess(text) }
+                } catch (e: Exception) {
+                    mainHandler.post { callback.onError("Parse error: ${e.message}") }
+                }
+            }
+        })
+    }
+
+    fun generateReply(reviewText: String, callback: AiCallback) {
+        val prompt = "यह एक गूगल बिजनेस रिव्यू है: '$reviewText'. इस रिव्यू का एक छोटा, विनम्र और प्रोफेशनल हिंदी/इंग्लिश रिप्लाई लिखें जो ग्राहक को धन्यवाद दे। केवल रिप्लाई टेक्स्ट दें, कोई अतिरिक्त स्पष्टीकरण नहीं।"
+        generateReview(prompt, callback)
+    }
+}

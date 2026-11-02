@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Review App</string>
+    <string name="login_with_google">गूगल से लॉगिन करें</string>
+    <string name="enter_business_link">बिजनेस प्रोफाइल लिंक डालें</string>
+    <string name="note_reviews_only">नोट: केवल रिव्यू सबमिट होंगे, रिप्लाई नहीं।</string>
+    <string name="login_same_account">लॉगिन उसी अकाउंट से करें जो गूगल बिजनेस के लिए इस्तेमाल किया गया है।</string>
+    <string name="dashboard">डैशबोर्ड</string>
+    <string name="qr_code">QR कोड</string>
+    <string name="reviews">रिव्यू</string>
+    <string name="account">अकाउंट</string>
+    <string name="generate_qr">QR जनरेट करें</string>
+    <string name="copy_link">लिंक कॉपी करें</string>
+    <string name="sign_out">साइन आउट</string>
+    <string name="total_reviews">कुल रिव्यू</string>
+    <string name="link_clicks">लिंक क्लिक</string>
+    <string name="qr_scans">QR स्कैन</string>
+    <string name="total_replies">कुल रिप्लाई</string>
+    <string name="enter_link_here">गूगल बिजनेस रिव्यू पेज लिंक पेस्ट करें...</string>
+    <string name="generate_review_link">रिव्यू लिंक जनरेट करें</string>
+    <string name="account_details">अकाउंट डिटेल्स</string>
+    <string name="email">ईमेल</string>
+    <string name="no_account">कोई अकाउंट लॉगिन नहीं है</string>
+    <string name="reply_with_ai">AI से रिप्लाई जनरेट करें</string>
+    <string name="open_review_page">रिव्यू पेज खोलें</string>
+</resources>
