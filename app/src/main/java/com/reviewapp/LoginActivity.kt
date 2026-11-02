@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "प्लीज बिजनेस लिंक डालें", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            db.saveUser(null, null)
+            db.saveUser(null, "Guest User")
             db.saveLinkStat(link)
             startActivity(Intent(this, ReviewLinkActivity::class.java).apply {
                 putExtra("generated_link", link)

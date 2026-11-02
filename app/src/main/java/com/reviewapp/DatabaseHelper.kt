@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import java.util.Date
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "review_app_db", null, 1) {
 
@@ -49,7 +50,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "review_app_d
         val cv = ContentValues()
         cv["email"] = email
         cv["name"] = name
-        cv["login_time"] = java.time.LocalDateTime.now().toString()
+        cv["login_time"] = Date().toString()
         db.insert("user_account", null, cv)
         db.close()
     }
@@ -77,7 +78,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "review_app_d
         val cv = ContentValues()
         cv["review_text"] = reviewText
         cv["ai_reply"] = aiReply
-        cv["created_at"] = java.time.LocalDateTime.now().toString()
+        cv["created_at"] = Date().toString()
         db.insert("reviews", null, cv)
         db.close()
     }
@@ -105,7 +106,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "review_app_d
         cv["clicks"] = 0
         cv["qr_scans"] = 0
         cv["replies"] = 0
-        cv["created_at"] = java.time.LocalDateTime.now().toString()
+        cv["created_at"] = Date().toString()
         db.insert("link_stats", null, cv)
         db.close()
     }
