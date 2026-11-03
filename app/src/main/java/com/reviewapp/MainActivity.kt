@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         // डिफ़ॉल्ट डैशबोर्ड
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, DashboardFragment::class.java)
+            .replace(R.id.fragment_container, DashboardFragment())
             .commit()
 
         binding.bottomNav.setOnItemSelectedListener { item ->

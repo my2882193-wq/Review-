@@ -33,7 +33,7 @@ class ReviewLinkActivity : AppCompatActivity() {
         binding.ivRlQr.setImageBitmap(bitmap)
 
         binding.btnRlCopy.setOnClickListener {
-            android.content.ClipboardManager.getSystemService(this)
+            android.content.ClipboardManager.getSystemService(requireContext(), android.content.Context.CLIPBOARD_SERVICE)
                 .setPrimaryClip(android.content.ClipData.newPlainText("label", link))
             Toast.makeText(this, "लिंक कॉपी हो गया", Toast.LENGTH_SHORT).show()
         }

@@ -42,7 +42,7 @@ class QRFragment : Fragment() {
         binding.btnCopyLinkQr.setOnClickListener {
             val link = binding.etQrLink.text.toString().trim()
             if (link.isNotEmpty()) {
-                android.content.ClipboardManager.getSystemService(requireContext())
+                android.content.ClipboardManager.getSystemService(requireContext(), android.content.Context.CLIPBOARD_SERVICE)
                     .setPrimaryClip(android.content.ClipData.newPlainText("label", link))
                 Toast.makeText(requireContext(), "लिंक कॉपी हो गया", Toast.LENGTH_SHORT).show()
             }

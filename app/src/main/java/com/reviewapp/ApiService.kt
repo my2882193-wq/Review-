@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import com.google.gson.Gson
 import okhttp3.*
+import java.io.IOException
 
 object ApiService {
     private val BASE_URL = "https://openrouter.ai/api/v1"
@@ -25,7 +26,8 @@ object ApiService {
 
     fun generateReview(prompt: String, callback: AiCallback) {
         val json = gson.toJson(AiRequest(MODEL, listOf(Message("user", prompt))))
-        val body = RequestBody.create(json, MediaType.get("application/json; charset=utf-8")!!)
+        // Use OkHttp's Kotlin extensions for RequestBody
+        val body = json.toRequestBody("application/json; charset=utf-8".toMediaType())
         val request = Request.Builder()
             .url("$BASE_URL/chat/completions")
             .header("Authorization", "Bearer $API_KEY")

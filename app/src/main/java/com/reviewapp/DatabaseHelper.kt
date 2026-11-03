@@ -48,9 +48,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "review_app_d
     fun saveUser(email: String?, name: String?) {
         val db = this.writableDatabase
         val cv = ContentValues()
-        cv["email"] = email
-        cv["name"] = name
-        cv["login_time"] = Date().toString()
+        cv.put("email", email)
+        cv.put("name", name)
+        cv.put("login_time", Date().toString())
         db.insert("user_account", null, cv)
         db.close()
     }
@@ -76,8 +76,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "review_app_d
     fun saveReview(reviewText: String, aiReply: String?) {
         val db = this.writableDatabase
         val cv = ContentValues()
-        cv["review_text"] = reviewText
-        cv["ai_reply"] = aiReply
+        cv.put("review_text", reviewText)
+        cv.put("ai_reply", aiReply)
         cv["created_at"] = Date().toString()
         db.insert("reviews", null, cv)
         db.close()
