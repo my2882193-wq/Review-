@@ -13,7 +13,6 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "OPENROUTER_API_KEY", "\"${project.findProperty('OPENROUTER_API_KEY') ?: 'YOUR_OPENROUTER_API_KEY_HERE'}\""
     }
 
     buildTypes {

@@ -7,7 +7,7 @@ import okhttp3.*
 
 object ApiService {
     private val BASE_URL = "https://openrouter.ai/api/v1"
-    private val API_KEY = BuildConfig.OPENROUTER_API_KEY
+    private val API_KEY = "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"
     private val MODEL = "nvidia/nemotron-3.5-embed-1b"
     private val client = OkHttpClient()
     private val gson = Gson()

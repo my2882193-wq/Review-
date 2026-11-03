@@ -20,10 +20,10 @@ jobs:
           distribution: 'temurin'
 
       - name: Set up Gradle
-        uses: actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Build Debug APK
-        run: gradle assembleDebug -POPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }}
+        run: gradle assembleDebug
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
