@@ -1,11 +1,13 @@
 package com.reviewapp
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.BarcodeFormat
@@ -28,20 +30,19 @@ class ReviewLinkActivity : AppCompatActivity() {
         binding.tvRlGeneratedLink.text = link
         binding.tvRlTitle.text = "AI रिव्यू: $aiReview"
 
-        // QR जनरेट करें लिंक के लिए
         val bitmap = generateQrBitmap(link, 400, 400)
         binding.ivRlQr.setImageBitmap(bitmap)
 
         binding.btnRlCopy.setOnClickListener {
-            android.content.ClipboardManager.getSystemService(requireContext(), android.content.Context.CLIPBOARD_SERVICE)
-                .setPrimaryClip(android.content.ClipData.newPlainText("label", link))
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboard.setPrimaryClip(ClipData.newPlainText("label", link))
             Toast.makeText(this, "लिंक कॉपी हो गया", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnRlOpen.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
             startActivity(browserIntent)
-            Toast.makeText(this, "रिव्यू पेज खुल रहा है। ऊपर दिखाया AI रिव्यू कॉपी करके पेस्ट करें।", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "रिव्यू पेज खुल रहा है। ऊपर दिखाया AI रिव्यू कॉपी करके पेस्ट करें।", Toast.LENGTH_SHORT).show()
         }
     }
 

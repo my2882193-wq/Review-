@@ -4,12 +4,14 @@ import android.os.Handler
 import android.os.Looper
 import com.google.gson.Gson
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
 
 object ApiService {
-    private val BASE_URL = "https://openrouter.ai/api/v1"
-    private val API_KEY = "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"
-    private val MODEL = "nvidia/nemotron-3.5-embed-1b"
+    private const val BASE_URL = "https://openrouter.ai/api/v1"
+    private const val API_KEY = "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"
+    private const val MODEL = "nvidia/nemotron-3.5-embed-1b"
     private val client = OkHttpClient()
     private val gson = Gson()
     private val mainHandler = Handler(Looper.getMainLooper())
@@ -26,7 +28,6 @@ object ApiService {
 
     fun generateReview(prompt: String, callback: AiCallback) {
         val json = gson.toJson(AiRequest(MODEL, listOf(Message("user", prompt))))
-        // Use OkHttp's Kotlin extensions for RequestBody
         val body = json.toRequestBody("application/json; charset=utf-8".toMediaType())
         val request = Request.Builder()
             .url("$BASE_URL/chat/completions")
@@ -58,7 +59,7 @@ object ApiService {
     }
 
     fun generateReply(reviewText: String, callback: AiCallback) {
-        val prompt = "यह एक गूगल बिजनेस रिव्यू है: '$reviewText'. इस रिव्यू का एक छोटा, विनम्र और प्रोफेशनल हिंदी/इंग्लिश रिप्लाई लिखें जो ग्राहक को धन्यवाद दे। केवल रिप्लाई टेक्स्ट दें, कोई अतिरिक्त स्पष्टीकरण नहीं।"
+        val prompt = "यह एक गूगल बिजनेस रिव्यू है: '$reviewText'. इस रिव्यू का एक छोटा, विनम्र और पेशेवर जवाब दें।"
         generateReview(prompt, callback)
     }
 }

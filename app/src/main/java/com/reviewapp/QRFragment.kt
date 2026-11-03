@@ -1,6 +1,10 @@
 package com.reviewapp
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +15,6 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.common.BitMatrix
 import com.reviewapp.databinding.FragmentQrBinding
-import android.graphics.Color
 
 class QRFragment : Fragment() {
 
@@ -19,13 +22,17 @@ class QRFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var db: DatabaseHelper
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentQrBinding.inflate(inflater, container, false)
         db = DatabaseHelper(requireContext())
         return binding.root
     }
 
-    override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnGenerateQr.setOnClickListener {
@@ -42,8 +49,8 @@ class QRFragment : Fragment() {
         binding.btnCopyLinkQr.setOnClickListener {
             val link = binding.etQrLink.text.toString().trim()
             if (link.isNotEmpty()) {
-                android.content.ClipboardManager.getSystemService(requireContext(), android.content.Context.CLIPBOARD_SERVICE)
-                    .setPrimaryClip(android.content.ClipData.newPlainText("label", link))
+                val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                clipboard.setPrimaryClip(ClipData.newPlainText("label", link))
                 Toast.makeText(requireContext(), "लिंक कॉपी हो गया", Toast.LENGTH_SHORT).show()
             }
         }

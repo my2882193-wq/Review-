@@ -78,7 +78,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "review_app_d
         val cv = ContentValues()
         cv.put("review_text", reviewText)
         cv.put("ai_reply", aiReply)
-        cv["created_at"] = Date().toString()
+        cv.put("created_at", Date().toString())
         db.insert("reviews", null, cv)
         db.close()
     }
@@ -102,11 +102,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "review_app_d
     fun saveLinkStat(link: String) {
         val db = this.writableDatabase
         val cv = ContentValues()
-        cv["link"] = link
-        cv["clicks"] = 0
-        cv["qr_scans"] = 0
-        cv["replies"] = 0
-        cv["created_at"] = Date().toString()
+        cv.put("link", link)
+        cv.put("clicks", 0)
+        cv.put("qr_scans", 0)
+        cv.put("replies", 0)
+        cv.put("created_at", Date().toString())
         db.insert("link_stats", null, cv)
         db.close()
     }
