@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.BarcodeFormat
@@ -34,9 +35,17 @@ class ReviewLinkActivity : AppCompatActivity() {
         binding.ivRlQr.setImageBitmap(bitmap)
 
         binding.btnRlCopy.setOnClickListener {
-            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipboard.setPrimaryClip(ClipData.newPlainText("label", link))
-            Toast.makeText(this, "लिंक कॉपी हो गया", Toast.LENGTH_SHORT).show()
+            val link = binding.etQrLink?.text?.toString() ?: ""
+            if (link.isNotEmpty()) {
+                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                clipboard.setPrimaryClip(ClipData.newPlainText("label", link))
+                Toast.makeText(this, "लिंक कॉपी हो गया", Toast.LENGTH_SHORT).show()
+                
+                // Open Google Review page with the link
+                val reviewIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                startActivity(reviewIntent)
+                Toast.makeText(this, "गूगल रिव्यू पेज खोला गया", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.btnRlOpen.setOnClickListener {
